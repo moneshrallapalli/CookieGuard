@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CookieGuard Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="d3.v7.min.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <header>
+      <h1>CookieGuard Dashboard</h1>
+      <p>Real-time cookie analytics and privacy insights</p>
+      <button id="refresh-btn" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">↻ Refresh Data</button>
+    </header>
+
+    <div class="stats-overview">
+      <div class="stat-box">
+        <div class="stat-value" id="overview-total">0</div>
+        <div class="stat-label">Total Cookies</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="overview-domains">0</div>
+        <div class="stat-label">Unique Domains</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="overview-trackers">0</div>
+        <div class="stat-label">Trackers Detected</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="overview-fingerprints">0</div>
+        <div class="stat-label">Fingerprinting</div>
+      </div>
+      <div class="stat-box highlight-box">
+        <div class="stat-value" id="overview-cname">0</div>
+        <div class="stat-label">CNAME Cloaking</div>
+      </div>
+    </div>
+
+    <!-- NEW: Advanced Tracking Detection -->
+    <div class="detection-alerts">
+      <div class="alert-section" id="cname-alerts" style="display:none;">
+        <h3>⚠️ CNAME Cloaking Detected</h3>
+        <p class="alert-description">Trackers disguised as first-party domains</p>
+        <div id="cname-list"></div>
+      </div>
+
+      <div class="alert-section" id="fingerprint-alerts" style="display:none;">
+        <h3>🔍 Browser Fingerprinting Detected</h3>
+        <p class="alert-description">Advanced tracking techniques beyond cookies</p>
+        <div id="fingerprint-summary"></div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-container">
+        <h2>Cookie Distribution by Category</h2>
+        <div id="pie-chart"></div>
+      </div>
+
+      <div class="chart-container">
+        <h2>Top 10 Cookie Domains</h2>
+        <div id="bar-chart"></div>
+      </div>
+
+      <div class="chart-container full-width">
+        <h2>Cookie Timeline (Last 24 Hours)</h2>
+        <div id="timeline-chart"></div>
+      </div>
+
+      <div class="chart-container full-width">
+        <h2>Cookie Details</h2>
+        <div class="table-controls">
+          <input type="text" id="search-input" placeholder="Search cookies...">
+          <select id="category-filter">
+            <option value="">All Categories</option>
+            <option value="essential">Essential</option>
+            <option value="functional">Functional</option>
+            <option value="analytics">Analytics</option>
+            <option value="advertising">Advertising</option>
+            <option value="social">Social</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+        <div id="cookie-table"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard-fixed.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" fill="#667eea" rx="20"/>
+  <circle cx="64" cy="54" r="35" fill="#fff"/>
+  <circle cx="55" cy="45" r="5" fill="#667eea"/>
+  <circle cx="73" cy="45" r="5" fill="#667eea"/>
+  <circle cx="48" cy="58" r="5" fill="#667eea"/>
+  <circle cx="80" cy="58" r="5" fill="#667eea"/>
+  <path d="M 64 70 Q 72 78 84 75" stroke="#667eea" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M 40 94 L 48 102 L 62 88 L 88 114" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="64" y="122" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">GUARD</text>
+</svg>

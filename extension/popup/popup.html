@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CookieGuard</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🍪 CookieGuard</h1>
+      <p class="subtitle">ML-Powered Cookie Protection</p>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="total-cookies">0</div>
+        <div class="stat-label">Total Cookies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="blocked-cookies">0</div>
+        <div class="stat-label">Blocked</div>
+      </div>
+    </div>
+
+    <div class="mode-section">
+      <label for="mode-select">Protection Mode:</label>
+      <select id="mode-select">
+        <option value="observe" selected>Observe (Safe - No Blocking)</option>
+        <option value="balanced">Balanced</option>
+        <option value="strict">Strict</option>
+      </select>
+    </div>
+
+    <div class="categories">
+      <h3>Cookies by Category</h3>
+      <div class="category-list" id="category-list">
+        <div class="category-item">
+          <span class="category-name">
+            <span class="category-dot essential"></span>
+            Essential
+          </span>
+          <span class="category-count" id="count-essential">0</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">
+            <span class="category-dot functional"></span>
+            Functional
+          </span>
+          <span class="category-count" id="count-functional">0</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">
+            <span class="category-dot analytics"></span>
+            Analytics
+          </span>
+          <span class="category-count" id="count-analytics">0</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">
+            <span class="category-dot advertising"></span>
+            Advertising
+          </span>
+          <span class="category-count" id="count-advertising">0</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">
+            <span class="category-dot social"></span>
+            Social
+          </span>
+          <span class="category-count" id="count-social">0</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">
+            <span class="category-dot unknown"></span>
+            Unknown
+          </span>
+          <span class="category-count" id="count-unknown">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="clear-advertising" class="btn btn-danger">
+        Clear Advertising Cookies
+      </button>
+      <button id="view-dashboard" class="btn btn-primary">
+        View Dashboard
+      </button>
+    </div>
+
+    <div class="footer">
+      <div class="privacy-score">
+        Privacy Score: <span id="privacy-score">--</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup-fixed.js"></script>
+</body>
+</html>
