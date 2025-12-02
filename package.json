@@ -1,0 +1,31 @@
+{
+  "name": "cookieguard",
+  "version": "1.0.0",
+  "description": "ML-Powered Cookie Security Extension for intelligent cookie detection and privacy control",
+  "main": "extension/background/service-worker.js",
+  "scripts": {
+    "dev": "echo 'Load extension from ./extension folder in Chrome'",
+    "lint": "eslint extension/**/*.js",
+    "test": "echo 'No tests configured yet'",
+    "train": "cd ml-pipeline && python src/data_collector.py && python src/model_trainer.py && python src/onnx_converter.py",
+    "collect-data": "cd ml-pipeline && python src/data_collector.py",
+    "train-model": "cd ml-pipeline && python src/model_trainer.py",
+    "convert-onnx": "cd ml-pipeline && python src/onnx_converter.py"
+  },
+  "keywords": [
+    "chrome-extension",
+    "privacy",
+    "cookies",
+    "machine-learning",
+    "security",
+    "tracking-protection"
+  ],
+  "author": "CookieGuard Team",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "dependencies": {
+    "onnxruntime-web": "^1.14.0"
+  }
+}

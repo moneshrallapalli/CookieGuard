@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CookieGuard Test Suite</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, #666 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .section {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      transition: all 0.3s;
+    }
+
+    .section:hover {
+      background: #1a1a1a;
+      border-color: #333;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    p {
+      color: #888;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.secondary {
+      background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+      box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    }
+
+    button.secondary:hover {
+      box-shadow: 0 6px 16px rgba(107, 114, 128, 0.4);
+    }
+
+    button.danger {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    button.danger:hover {
+      box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+    }
+
+    button.success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    button.success:hover {
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    .result {
+      background: #0f0f0f;
+      padding: 16px 20px;
+      margin-top: 16px;
+      border-radius: 10px;
+      border-left: 3px solid #3b82f6;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .result.success {
+      border-left-color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .result.warning {
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    .result.info {
+      border-left-color: #06b6d4;
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    canvas {
+      border: 2px solid #2a2a2a;
+      margin: 16px 0;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .cookie-item {
+      background: #0f0f0f;
+      padding: 12px 16px;
+      margin: 6px 0;
+      border-radius: 8px;
+      font-size: 13px;
+      border: 1px solid #2a2a2a;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    }
+
+    #extension-info {
+      background: #0f0f0f;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    code {
+      background: #0a0a0a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+      font-size: 12px;
+      border: 1px solid #2a2a2a;
+    }
+
+    input[type="text"] {
+      background: #0a0a0a;
+      border: 1px solid #2a2a2a;
+      color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    ul {
+      margin: 12px 0;
+      padding-left: 20px;
+      color: #888;
+    }
+
+    ul li {
+      margin: 6px 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🍪 CookieGuard Test Suite</h1>
+      <p class="subtitle">Extension Testing & Validation</p>
+    </header>
+
+    <div class="section">
+      <h2>1. Cookie Detection</h2>
+      <p>Test ML classification across different cookie categories</p>
+      <div class="button-group">
+        <button onclick="setTrackingCookies()">Tracking Cookies</button>
+        <button onclick="setAnalyticsCookies()">Analytics Cookies</button>
+        <button onclick="setEssentialCookies()">Essential Cookies</button>
+        <button class="success" onclick="setAllCookies()">All Cookie Types</button>
+        <button class="secondary" onclick="showCurrentCookies()">Show Cookies</button>
+      </div>
+      <div id="cookie-results"></div>
+    </div>
+
+    <div class="section">
+      <h2>2. Fingerprinting Detection</h2>
+      <p>Trigger advanced tracking techniques for detection testing</p>
+      <div class="button-group">
+        <button onclick="testCanvasFingerprint()">Canvas</button>
+        <button onclick="testWebGLFingerprint()">WebGL</button>
+        <button onclick="testAudioFingerprint()">Audio</button>
+        <button onclick="testFontEnumeration()">Fonts</button>
+        <button class="success" onclick="testAllFingerprinting()">Run All</button>
+      </div>
+      <div id="fingerprint-results"></div>
+      <canvas id="test-canvas" width="200" height="50"></canvas>
+    </div>
+
+    <div class="section">
+      <h2>3. CNAME Cloaking Detection</h2>
+      <p>Visit sites with known tracker cloaking via DNS CNAME records</p>
+      <div class="button-group">
+        <button onclick="window.open('https://www.forbes.com', '_blank')">Forbes</button>
+        <button onclick="window.open('https://www.theguardian.com', '_blank')">Guardian</button>
+        <button onclick="window.open('https://www.nytimes.com', '_blank')">NY Times</button>
+      </div>
+      <div class="result warning">
+        CNAME detection requires DNS queries and checks against tracker databases.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. Dashboard Access</h2>
+      <p>View comprehensive analytics and detection statistics</p>
+      <div class="button-group">
+        <button onclick="openDashboard()">Open Dashboard</button>
+        <button class="secondary" onclick="openDevTools()">Service Worker Console</button>
+        <button class="secondary" onclick="getExtensionId()">Access Instructions</button>
+      </div>
+      <div id="extension-info" style="display: none;"></div>
+      <div class="result info">
+        <strong>Quick Access:</strong> Click the CookieGuard icon → "View Dashboard"
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>5. Real-World Testing</h2>
+      <p>Test on production websites with active tracking</p>
+      <div class="button-group">
+        <button onclick="window.open('https://www.cnn.com', '_blank')">CNN</button>
+        <button onclick="window.open('https://www.buzzfeed.com', '_blank')">BuzzFeed</button>
+        <button onclick="window.open('https://www.dailymail.co.uk', '_blank')">Daily Mail</button>
+      </div>
+      <div class="button-group" style="margin-top: 12px;">
+        <button class="danger" onclick="window.open('https://coveryourtracks.eff.org/', '_blank')">EFF Cover Your Tracks</button>
+        <button class="danger" onclick="window.open('https://browserleaks.com/canvas', '_blank')">BrowserLeaks</button>
+        <button class="danger" onclick="window.open('https://abrahamjuliot.github.io/creepjs/', '_blank')">CreepJS</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setTrackingCookies() {
+      document.cookie = "_fbp=fb.1.123456789.987654321; max-age=7776000; path=/";
+      document.cookie = "fr=facebook_tracker_cookie; max-age=7776000; path=/";
+      document.cookie = "IDE=google_doubleclick_tracking; max-age=31536000; path=/";
+      document.cookie = "test_cookie=check_third_party; max-age=900; path=/";
+      logResult('cookie-results', 'Set 4 advertising/tracking cookies', 'success');
+    }
+
+    function setAnalyticsCookies() {
+      document.cookie = "_ga=GA1.2.123456789.1234567890; max-age=63072000; path=/";
+      document.cookie = "_gid=GA1.2.987654321.9876543210; max-age=86400; path=/";
+      document.cookie = "_gat=1; max-age=60; path=/";
+      document.cookie = "__utma=analytics_tracker; max-age=63072000; path=/";
+      logResult('cookie-results', 'Set 4 analytics cookies (Google Analytics)', 'success');
+    }
+
+    function setEssentialCookies() {
+      document.cookie = "session_id=abc123xyz789; max-age=3600; path=/; secure";
+      document.cookie = "csrf_token=csrf_protection_token; max-age=3600; path=/; secure";
+      document.cookie = "auth_token=user_authentication; max-age=86400; path=/; secure";
+      logResult('cookie-results', 'Set 3 essential cookies', 'success');
+    }
+
+    function setAllCookies() {
+      setTrackingCookies();
+      setTimeout(() => setAnalyticsCookies(), 100);
+      setTimeout(() => setEssentialCookies(), 200);
+      setTimeout(() => {
+        logResult('cookie-results', 'All cookie types set! Check extension popup.', 'success');
+      }, 300);
+    }
+
+    function showCurrentCookies() {
+      const cookies = document.cookie.split(';').filter(c => c.trim());
+      let html = `<div class="result"><strong>Current Cookies (${cookies.length}):</strong><br>`;
+      cookies.forEach(cookie => {
+        const [name, value] = cookie.trim().split('=');
+        html += `<div class="cookie-item">${name}</div>`;
+      });
+      html += '</div>';
+      document.getElementById('cookie-results').innerHTML = html;
+    }
+
+    function testCanvasFingerprint() {
+      const canvas = document.getElementById('test-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.textBaseline = 'top';
+      ctx.font = '14px Arial';
+      ctx.fillStyle = '#f60';
+      ctx.fillRect(125, 1, 62, 20);
+      ctx.fillStyle = '#069';
+      ctx.fillText('Canvas Fingerprint Test', 2, 15);
+      ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+      ctx.fillText('Canvas Fingerprint Test', 4, 17);
+      const dataURL = canvas.toDataURL();
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      logResult('fingerprint-results', 'Canvas fingerprinting triggered', 'warning');
+    }
+
+    function testWebGLFingerprint() {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+          gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+          gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        }
+        gl.getParameter(gl.VERSION);
+        gl.getParameter(gl.SHADING_LANGUAGE_VERSION);
+        logResult('fingerprint-results', 'WebGL fingerprinting triggered', 'warning');
+      } else {
+        logResult('fingerprint-results', 'WebGL not supported', 'warning');
+      }
+    }
+
+    function testAudioFingerprint() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const context = new AudioContext();
+        const oscillator = context.createOscillator();
+        const analyser = context.createAnalyser();
+        const gainNode = context.createGain();
+        gainNode.gain.value = 0;
+        oscillator.type = 'triangle';
+        oscillator.connect(analyser);
+        analyser.connect(gainNode);
+        gainNode.connect(context.destination);
+        oscillator.start(0);
+        setTimeout(() => {
+          oscillator.stop();
+          context.close();
+        }, 100);
+        logResult('fingerprint-results', 'Audio fingerprinting triggered', 'warning');
+      } catch (e) {
+        logResult('fingerprint-results', 'Audio fingerprinting failed', 'warning');
+      }
+    }
+
+    function testFontEnumeration() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const testString = 'mmmmmmmmmmlli';
+      const fonts = ['Arial', 'Verdana', 'Times New Roman', 'Courier New', 'Georgia', 'Palatino'];
+      fonts.forEach(font => {
+        ctx.font = '72px ' + font;
+        ctx.measureText(testString).width;
+      });
+      logResult('fingerprint-results', `Font enumeration triggered (${fonts.length} fonts)`, 'warning');
+    }
+
+    function testAllFingerprinting() {
+      testCanvasFingerprint();
+      setTimeout(() => testWebGLFingerprint(), 200);
+      setTimeout(() => testAudioFingerprint(), 400);
+      setTimeout(() => testFontEnumeration(), 600);
+      setTimeout(() => {
+        logResult('fingerprint-results', 'All fingerprinting tests complete', 'success');
+      }, 1000);
+    }
+
+    function logResult(elementId, message, type = '') {
+      const div = document.createElement('div');
+      div.className = 'result ' + type;
+      div.textContent = '✓ ' + message;
+      const container = document.getElementById(elementId);
+      container.insertBefore(div, container.firstChild);
+    }
+
+    function openDashboard() {
+      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getURL) {
+        window.open(chrome.runtime.getURL('dashboard/dashboard.html'), '_blank');
+      } else {
+        alert('Click the CookieGuard extension icon → "View Dashboard" button');
+      }
+    }
+
+    function openDevTools() {
+      alert('To view service worker logs:\n\n1. Go to chrome://extensions/\n2. Find CookieGuard\n3. Click "service worker" link');
+    }
+
+    function getExtensionId() {
+      const infoDiv = document.getElementById('extension-info');
+      infoDiv.style.display = 'block';
+      infoDiv.innerHTML = `
+        <strong>Dashboard Access Methods:</strong><br><br>
+        
+        <strong>Method 1 (Easiest):</strong><br>
+        Click the CookieGuard extension icon → "View Dashboard" button<br><br>
+        
+        <strong>Method 2 (Direct URL):</strong><br>
+        1. Go to <code>chrome://extensions/</code><br>
+        2. Find CookieGuard extension ID<br>
+        3. Navigate to: <code>chrome-extension://[YOUR-ID]/dashboard/dashboard.html</code><br>
+        
+        <input type="text" value="chrome-extension://[YOUR-EXTENSION-ID]/dashboard/dashboard.html" 
+               style="width: 100%;" onclick="this.select()" readonly>
+      `;
+    }
+
+    window.addEventListener('load', () => {
+      console.log('%cCookieGuard Test Suite Ready', 'font-size: 16px; font-weight: bold; color: #3b82f6;');
+    });
+  </script>
+</body>
+</html>
