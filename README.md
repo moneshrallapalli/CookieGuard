@@ -1,8 +1,12 @@
 CookieGuard: Browser Privacy Protection System
+
 Monesh Rallapalli
+
 Course: Security for Networked Systems (CSCI-B 544)
-Github: 
-Kaltura: 
+
+Github: https://github.com/moneshrallapalli/CookieGuard.git
+
+Kaltura: https://iu.mediaspace.kaltura.com/media/t/1_5h9blbmk
  
 Summary
 I built CookieGuard as my final project—a Chrome extension that tackles web tracking through rule-based cookie classification, fingerprinting detection, and CNAME cloaking identification. Everything runs locally in the browser because I didn't want to deal with setting up servers or storing user data.
